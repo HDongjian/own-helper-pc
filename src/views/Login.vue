@@ -41,24 +41,23 @@ export default {
   methods: {
     login () {
       this.$refs.loginForm.validate((success) => {
-        if (success) {
-          this.$http.request({
-            method: 'post',
-            url: '/api/login',
-            data: {
-              userName: this.loginForm.userName,
-              password: md5(this.loginForm.password)
-            }
-          }).then((res) => {
-            if (res.data.data) {
-              sessionStorage.setItem('account', JSON.stringify(res.data.data))
-              this.$store.commit('account', res.data.data)
-              setTimeout(() => {
-                location.href = web
-              }, 500)
-            }
-          })
-        }
+        if (!success) return
+        this.$http.request({
+          method: 'post',
+          url: '/api/login',
+          data: {
+            userName: this.loginForm.userName,
+            password: md5(this.loginForm.password)
+          }
+        }).then((res) => {
+          if (res.data.data) {
+            sessionStorage.setItem('account', JSON.stringify(res.data.data))
+            this.$store.commit('account', res.data.data)
+            setTimeout(() => {
+              location.href = web
+            }, 500)
+          }
+        })
       })
     }
   }

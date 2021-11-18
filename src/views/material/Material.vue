@@ -264,11 +264,12 @@ export default {
         let data = res.data.data.map(item => {
           item.id = Number(item.catalogueId)
           item.title = item.catalogueName
+          item.down = true
           item.parentId = item.catalogueParentId
-          item.count = item.parentId === '0' ? 1 : 2
           return item
         })
         this.catalogueData = this.$lib.dealTreeList(data)
+        this.catalogueData = this.$lib.setTreeCount(this.catalogueData)
       })
     },
     catalogueAdd (row = {}) {
@@ -278,7 +279,7 @@ export default {
         this.catalogue.catalogueParentName = catalogueName
         this.catalogue.catalogueParentId = catalogueId
       } else {
-        this.catalogue.catalogueParentName = '初始目录'
+        this.catalogue.catalogueParentName = '雅思小帮手'
         this.catalogue.catalogueParentId = '0'
       }
       this.catalogueModal = true

@@ -177,6 +177,15 @@ let lib = {
     }
     return false
   },
+  setTreeCount (data, count = 0) {
+    return data.map(item => {
+      item.count = count
+      if (item.children) {
+        item.children = this.setTreeCount(item.children, ++count)
+      }
+      return item
+    })
+  },
   /**
    * 处理部门数据
    */
