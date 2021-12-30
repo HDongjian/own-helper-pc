@@ -2,8 +2,8 @@
   <ul :class="{'tree-grid-ul-list':listName, 'cl':listName,'tree-grid-hiden':listName?false:!treeData.down}">
     <li v-for="(tree,i ) in dealTreedata" :key="i" class="cl">
       <div class="tree-grid-list" @click.stop="actions('click',tree.count,tree)">
-        <div :class="'fl mt_title p-l-'+tree.count*3" @click="down(tree,i)">
-          <Icon class="icon" v-if="tree.children" :type="`ios-arrow-${tree.down?'down':'forward'}`" />
+        <div :class="'fl mt_title p-l-'+tree.count*3">
+          <Icon class="icon" @click.stop="down(tree,i)" v-if="tree.children" :type="`ios-arrow-${tree.down?'down':'forward'}`" />
           {{ tree.title }}
         </div>
         <div class="fr action">

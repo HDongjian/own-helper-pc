@@ -24,6 +24,7 @@ if (href.indexOf('http://helper.hdongyu') !== -1) {
   fls = 'https://helper.hdongyu.com/'
   // fls = 'http://localhost:4008/'
   download = 'http://localhost:3008'
+  // file = 'http://localhost:4008/api/files'
   file = 'http://localhost:4008/api/files'
   // file = 'https://helper.hdongyu.com/api/files'
 }

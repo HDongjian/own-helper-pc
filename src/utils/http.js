@@ -21,6 +21,9 @@ const http = axios.create({
 })
 
 http.interceptors.request.use(function (request) {
+  if (request.loading) {
+    Vue.prototype.$Spin.show()
+  }
   let account = JSON.parse(sessionStorage.getItem('account') || '{}')
   if (account && account.token) {
     request.headers.token = account.token
@@ -29,6 +32,7 @@ http.interceptors.request.use(function (request) {
 }, error => Promise.reject(error))
 
 http.interceptors.response.use(response => {
+  Vue.prototype.$Spin.hide()
   let data = response.data
   if (data.code === 401) {
     sessionStorage.removeItem('account')

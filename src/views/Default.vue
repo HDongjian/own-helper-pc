@@ -1,6 +1,7 @@
 <template>
-  <div class="home">
+  <div class="home po-re">
     <div class="datalogue-echarts" ref="datalogue"></div>
+    <Spin size="large" fix v-if="loading"></Spin>
     <!-- <div class="datalogue" v-for="key in Object.keys(dealDatalogueData)" :key="key">
       <div class="datalogue-item" v-for="item in dealDatalogueData[key]" :key="item.catalogueId">
         <h4>{{item.catalogueName}}</h4>
@@ -14,6 +15,7 @@ import * as echarts from 'echarts'
 export default {
   data () {
     return {
+      loading: false,
       catalogueData: []
     }
   },
@@ -34,6 +36,7 @@ export default {
   },
   methods: {
     loadCatalogue () {
+      this.loading = true
       this.$http.request({
         method: 'get',
         url: `/api/catalogue/list`
@@ -59,6 +62,7 @@ export default {
         //   }
         //   return item
         // })
+        this.loading = false
         this.$nextTick(() => {
           this.getDataCount()
         })
@@ -134,12 +138,12 @@ export default {
 
 <style lang="less">
 .home {
-  .datalogue-echarts{
+  .datalogue-echarts {
     height: 100%;
   }
   .datalogue {
     margin: 30px 0;
-    &:first-child{
+    &:first-child {
       margin-top: 0;
     }
     .datalogue-item {
@@ -147,7 +151,7 @@ export default {
       padding: 10px 20px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      &+.datalogue-item{
+      & + .datalogue-item {
         margin-left: 20px;
       }
     }

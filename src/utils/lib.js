@@ -181,7 +181,7 @@ let lib = {
     return data.map(item => {
       item.count = count
       if (item.children) {
-        item.children = this.setTreeCount(item.children, ++count)
+        item.children = this.setTreeCount(item.children, count + 1)
       }
       return item
     })

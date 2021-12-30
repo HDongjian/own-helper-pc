@@ -11,7 +11,7 @@
         <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
       </template>
     </div>
-    <Upload :accept="accept" v-show="uploadList.length<limit" ref="upload" :show-upload-list="false" :headers="headers" :default-file-list="defaultList" :on-success="handleSuccess" :format="['jpg','jpeg','png','pdf']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" multiple type="drag" :action="file" class="uploader">
+    <Upload :accept="accept" v-show="uploadList.length<limit" ref="upload" :show-upload-list="false" :headers="headers" :default-file-list="defaultList" :data="{name:'112'}" :on-success="handleSuccess" :format="['jpg','jpeg','png','pdf']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" multiple type="drag" :action="file" class="uploader">
       <div class="uploader-action">
         <Icon type="ios-cloud-upload-outline" size="25" />
       </div>
@@ -105,11 +105,12 @@ export default {
         desc: '图片' + file.name + '太大，不能超过2M'
       })
     },
-    handleBeforeUpload () {
+    handleBeforeUpload (file) {
+      console.log(file)
       const check = this.uploadList.length < 5
       if (!check) {
         this.$Notice.warning({
-          title: 'Up to five pictures can be uploaded.'
+          title: '超出限制大小'
         })
       }
       return check
